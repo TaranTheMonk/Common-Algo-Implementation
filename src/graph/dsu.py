@@ -7,6 +7,7 @@ class DSU:
         self.rank = [0] * N
 
     def find(self, x: int) -> int:
+        # if x is not the root
         if self.parent[x] != x:
             parent = self.find(self.parent[x])
             # compress the path
