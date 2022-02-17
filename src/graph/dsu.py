@@ -4,7 +4,7 @@ class DSU:
         self.parent = list(range(N))
 
         # size of each component
-        self.rank = [0] * N
+        self.rank = [1] * N
 
     def find(self, x: int) -> int:
         # if x is not the root
