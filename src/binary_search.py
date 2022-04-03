@@ -1,5 +1,5 @@
 class Solution:
-    def maxValue(self, n: int, index: int, maxSum: int) -> int:
+    def max_value(self, n: int, index: int, max_sum: int) -> int:
         """
         lower bound: maxSum / n
         """
@@ -7,7 +7,7 @@ class Solution:
         num_after = n - 1 - index
 
         # index value is in [1, maxSum]
-        l, r = 1, maxSum
+        l, r = 1, max_sum
         while l <= r:
             x = (l + r) // 2
 
@@ -24,9 +24,9 @@ class Solution:
                 after_sum = 0
 
             # update boundary
-            if before_sum + x + after_sum < maxSum:
+            if before_sum + x + after_sum < max_sum:
                 l = x + 1
-            elif before_sum + x + after_sum > maxSum:
+            elif before_sum + x + after_sum > max_sum:
                 r = x - 1
             else:
                 break
