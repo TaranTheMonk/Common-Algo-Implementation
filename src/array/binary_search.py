@@ -1,34 +1,62 @@
-class Solution:
-    def max_value(self, n: int, index: int, max_sum: int) -> int:
-        """
-        lower bound: maxSum / n
-        """
-        num_before = index
-        num_after = n - 1 - index
+from typing import List
 
-        # index value is in [1, maxSum]
-        l, r = 1, max_sum
-        while l <= r:
-            x = (l + r) // 2
 
-            # sum before index
-            if num_before > 0:
-                before_sum = ((x - 1) + (x - num_before)) * num_before / 2
-            else:
-                before_sum = 0
+def binary_search(nums: List[int], val: int) -> bool:
+    """
+    search if val is in an ascending sorted list
+    :param nums:
+    :param val:
+    :return:
+    """
+    left, right = 0, len(nums) - 1
 
-            # sum after index
-            if num_after > 0:
-                after_sum = ((x - 1) + (x - num_after)) * num_after / 2
-            else:
-                after_sum = 0
+    while left <= right:
+        mid = (left + right) // 2
 
-            # update boundary
-            if before_sum + x + after_sum < max_sum:
-                l = x + 1
-            elif before_sum + x + after_sum > max_sum:
-                r = x - 1
-            else:
-                break
+        if nums[mid] == val:
+            return True
+        elif nums[mid] < val:
+            left = mid + 1
+        else:
+            right = mid - 1
 
-        return x
+    return False
+
+
+def binary_search_less_or_equal(nums: List[int], val: int) -> int:
+    """
+    search the number of elements in an  ascending sorted list
+    which are less or equal to val
+    :param nums:
+    :param val:
+    :return:
+    """
+    left, right = 0, len(nums) - 1
+
+    while left <= right:
+        mid = (left + right) // 2
+
+        # val is in the array
+        if nums[mid] == val:
+            # search till the last equals to val
+            while mid + 1 < len(nums) and nums[mid + 1] == val:
+                mid += 1
+            return len(nums[: mid + 1])
+        # mid is less than val, we ignore the left half
+        elif nums[mid] < val:
+            left = mid + 1
+        # mid is greater than val, we ignore the right half
+        else:
+            right = mid - 1
+
+    # val is not in the array, but nums[mid] is the most close one to val
+    if nums[mid] < val:
+        # search right till the last less than val
+        while mid + 1 < len(nums) and nums[mid + 1] < val:
+            mid += 1
+        return len(nums[: mid + 1])
+    else:
+        # search left till the first less then val
+        while mid - 1 > -1 and nums[mid - 1] > val:
+            mid -= 1
+        return len(nums[: mid])
