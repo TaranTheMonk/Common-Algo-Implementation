@@ -1,4 +1,8 @@
 class DSU:
+    """
+    data structure to find and merge components in logrithm time complexity
+    """
+
     def __init__(self, n: int):
         """
         1. only when dsu.parent[n] == n, n is the root!
