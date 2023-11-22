@@ -16,7 +16,7 @@ def is_zero(bit_mask: int, n: int) -> bool:
     :param n:
     :return:
     """
-    return bit_mask & 1 << (n-1) == 0
+    return bit_mask & 1 << (n - 1) == 0
 
 
 def is_one(bit_mask: int, n: int) -> bool:
@@ -28,7 +28,7 @@ def is_one(bit_mask: int, n: int) -> bool:
     :param n:
     :return:
     """
-    return bit_mask & 1 << (n-1) > 0
+    return bit_mask & 1 << (n - 1) > 0
 
 
 def set_to_zero(bit_mask: int, n: int) -> int:
@@ -57,3 +57,16 @@ def set_to_one(bit_mask: int, n: int) -> int:
     :return:
     """
     return bit_mask | 1 << (n - 1)
+
+
+def isolate_last_set(x: int) -> int:
+    """
+    to keep the bit from the last set, examples:
+        1. 6 & (-6) -> 0000 0110 & 1111 1010 -> 10
+
+    Note: negative value is represented via 2's complement in bits.
+        6 -> 0000 0110 -reverse> 1111 1001 -add 1> 1111 1010 -> -6
+    :param x:
+    :return:
+    """
+    return x & (-x)
